@@ -48,6 +48,7 @@ def solver():
     y_move = [0,0,1,-1]
     grid[4][4] = Acidseq[0]
     if ProteinFolding(Acidseq, grid, 1, x_move, y_move, 6, 6, 0):
+        print()
         print2D(grid)
 
 if __name__ == "__main__":
