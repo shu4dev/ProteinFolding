@@ -66,8 +66,7 @@ def countScore(acidSeq, listOfCoords, foldType):
                 j = listOfCoords.index(PossCoord)
                 if acidSeq[i] == 0 and acidSeq[j] == 0 and (not (((j - i) == 1) or ((i - j) == 1))):
                     score = score + 1
-                    copyListOfCoords.remove(PossCoord)
-    return score
+    return int(score/2)
 
 
 # This is the initial starter function that takes in a acidSeq and foldType and prints the fold type, score, and
@@ -111,6 +110,6 @@ def fold(acidSeq, foldType, foldSeq, listOfCoords):
     return
 
 
-sequence = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+sequence = [0, 0, 0, 0, 0]
 print(len(sequence))
-ProteinFolding(sequence, '2D Labbyfold')
+ProteinFolding(sequence, 'Hexfold')
