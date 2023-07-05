@@ -11,7 +11,6 @@ hexfoldKeys = ["W", "E", "D", "X", "Z", "A"]
 def getNextCoords(currentCoords, foldType):
     possibleCoords = []
     if foldType == "2D Labbyfold":
-        print(str(currentCoords))
         possibleCoords = [
             [currentCoords[0], currentCoords[1] + 1],
             [currentCoords[0] + 1, currentCoords[1]],
@@ -104,13 +103,14 @@ def fold(acidSeq, foldType, foldSeq, listOfCoords):
         valid = CoordsIsValid(possCoord, listOfCoords)
         if valid:
             if foldType == "Hexfold":
-                fold(acidSeq, foldType, foldSeq + [hexfoldKeys[i]], listOfCoords + possCoord)
+                fold(acidSeq, foldType, foldSeq + [hexfoldKeys[i]], listOfCoords + [possCoord])
             elif foldType == "2D Labbyfold":
-                fold(acidSeq, foldType, foldSeq + [twoDimLabbyfoldKeys[i]], listOfCoords + possCoord)
+                fold(acidSeq, foldType, foldSeq + [twoDimLabbyfoldKeys[i]], listOfCoords + [possCoord])
             elif foldType == "3D Labbyfold":
-                fold(acidSeq, foldType, foldSeq + [threeDimLabbyfoldKeys[i]], listOfCoords + possCoord)
+                fold(acidSeq, foldType, foldSeq + [threeDimLabbyfoldKeys[i]], listOfCoords + [possCoord])
     return
 
 
-sequence = [0, 0, 0, 0]
+sequence = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+print(len(sequence))
 ProteinFolding(sequence, '2D Labbyfold')

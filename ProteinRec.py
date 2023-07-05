@@ -118,4 +118,4 @@ def solve(input):
     print("Max score", Maxpts)
     return True
 if __name__ == "__main__":
-    solve([0,0,0,1,0,0,0,0,1])
+    solve([0, 0, 0, 0, 0, 0, 0, 0])
