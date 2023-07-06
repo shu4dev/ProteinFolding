@@ -5,6 +5,7 @@ maxScore = 0
 BestFold = []
 twoDimLabbyfoldKeys = ["W", "D", "S", "A"]
 threeDimLabbyfoldKeys = ["W", "D", "S", "A", "F", "E"]
+fourDimLabbyfoldKeys = ["W", "D", "S", "A", "F", "E", "G", "R"]
 hexfoldKeys = ["W", "E", "D", "X", "Z", "A"]
 
 
@@ -50,6 +51,17 @@ def getNextCoords(currentCoords, foldType):
             [currentCoords[0], currentCoords[1], currentCoords[2] + 1],
             [currentCoords[0], currentCoords[1], currentCoords[2] - 1],
         ]
+    elif foldType == "4D Labbyfold":
+        possibleCoords = [
+            [currentCoords[0], currentCoords[1] + 1, currentCoords[2], currentCoords[3]],
+            [currentCoords[0] + 1, currentCoords[1], currentCoords[2], currentCoords[3]],
+            [currentCoords[0], currentCoords[1] - 1, currentCoords[2], currentCoords[3]],
+            [currentCoords[0] - 1, currentCoords[1], currentCoords[2], currentCoords[3]],
+            [currentCoords[0], currentCoords[1], currentCoords[2] + 1, currentCoords[3]],
+            [currentCoords[0], currentCoords[1], currentCoords[2] - 1, currentCoords[3]],
+            [currentCoords[0], currentCoords[1], currentCoords[2], currentCoords[3]+1],
+            [currentCoords[0], currentCoords[1], currentCoords[2], currentCoords[3]-1],
+        ]
     return possibleCoords
 
 
@@ -86,8 +98,11 @@ def ProteinFolding(acidSeq, foldType):
     elif foldType == "3D Labbyfold":
         CoordsOfFolds = [[0, 0, 0], [1, 0, 0]]
         fold(acidSeq, foldType, foldSeq, CoordsOfFolds)
+    elif foldType == "4D Labbyfold":
+        CoordsOfFolds = [[0, 0, 0, 0], [1, 0, 0, 0]]
+        fold(acidSeq, foldType, foldSeq, CoordsOfFolds)
     else:
-        print("Invalid fold type parameter. Accepted: \"2D Labbyfold\", \"Hexfold\", \"3D Labbyfold\"")
+        print("Invalid fold type parameter. Accepted: \"2D Labbyfold\", \"Hexfold\", \"3D Labbyfold\", \"4D Labbyfold\"")
 
 
 # This function takes in an acidSeq, score, foldSeq, and CoordsOfFolds uses recursion to print the foldSeq if the
@@ -117,10 +132,12 @@ def fold(acidSeq, foldType, foldSeq, listOfCoords):
                 fold(acidSeq, foldType, foldSeq + [twoDimLabbyfoldKeys[i]], listOfCoords + [possCoord])
             elif foldType == "3D Labbyfold":
                 fold(acidSeq, foldType, foldSeq + [threeDimLabbyfoldKeys[i]], listOfCoords + [possCoord])
+            elif foldType == "4D Labbyfold":
+                fold(acidSeq, foldType, foldSeq + [fourDimLabbyfoldKeys[i]], listOfCoords + [possCoord])
     return
 
 def print3D(listOFCoords):
-    global fig 
+    global fig
     global ax
     fig = plt.figure()
     ax = plt.axes(projection = '3d')
@@ -140,9 +157,9 @@ def print3D(listOFCoords):
     plt.show()
     return
 
-sequence = [0, 0, 0, 0, 0, 0, 0, 0, 0]
+sequence = [0, 0, 0, 0]
 print(len(sequence))
 
-ProteinFolding(sequence, '3D Labbyfold')
+ProteinFolding(sequence, '4D Labbyfold')
 
 print3D(BestFold)
