@@ -76,7 +76,11 @@ def countScore(acidSeq, listOfCoords, foldType):
 def ProteinFolding(acidSeq, foldType):
     foldSeq = ["D"]
     CoordsOfFolds = [[0, 0], [1, 0]]
-    if foldType == "2D Labbyfold" or foldType == "Hexfold" or foldType == "3D Labbyfold":
+    if foldType == "2D Labbyfold" or foldType == "Hexfold":
+        CoordsOfFolds = [[0, 0], [1, 0]]
+        fold(acidSeq, foldType, foldSeq, CoordsOfFolds)
+    elif foldType == "3D Labbyfold":
+        CoordsOfFolds = [[0, 0, 0], [1, 0, 0]]
         fold(acidSeq, foldType, foldSeq, CoordsOfFolds)
     else:
         print("Invalid fold type parameter. Accepted: \"2D Labbyfold\", \"Hexfold\", \"3D Labbyfold\"")
@@ -112,4 +116,4 @@ def fold(acidSeq, foldType, foldSeq, listOfCoords):
 
 sequence = [0, 0, 0, 0, 0]
 print(len(sequence))
-ProteinFolding(sequence, 'Hexfold')
+ProteinFolding(sequence, '3D Labbyfold')
