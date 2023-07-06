@@ -1,6 +1,7 @@
 import copy
 import numpy as np
 import matplotlib.pyplot as plt
+
 maxScore = 0
 BestFold = []
 twoDimLabbyfoldKeys = ["W", "D", "S", "A"]
@@ -70,7 +71,7 @@ def countScore(acidSeq, listOfCoords, foldType):
                 j = listOfCoords.index(PossCoord)
                 if acidSeq[i] == 0 and acidSeq[j] == 0 and (not (((j - i) == 1) or ((i - j) == 1))):
                     score = score + 1
-    return int(score/2)
+    return int(score / 2)
 
 
 # This is the initial starter function that takes in a acidSeq and foldType and prints the fold type, score, and
@@ -119,30 +120,43 @@ def fold(acidSeq, foldType, foldSeq, listOfCoords):
                 fold(acidSeq, foldType, foldSeq + [threeDimLabbyfoldKeys[i]], listOfCoords + [possCoord])
     return
 
-def print3D(listOFCoords):
-    global fig 
+
+def plotAcid(listOFCoords, foldType):
+    global fig
     global ax
     fig = plt.figure()
-    ax = plt.axes(projection = '3d')
     x = []
     y = []
     z = []
-    for coord in listOFCoords:
-        x.append(coord[0])
-        y.append(coord[1])
-        z.append(coord[2])
-    ax.scatter3D(x, y, z, color='red')
-    ax.plot3D(x,y,z)
-    ax.set_xlabel('X-axis')
-    ax.set_ylabel('Y-axis')
-    ax.set_zlabel('Z-axis')
-
+    if foldType == "3D Labbyfold":
+        ax = plt.axes(projection='3d')
+        for coord in listOFCoords:
+            x.append(coord[0])
+            y.append(coord[1])
+            z.append(coord[2])
+        ax.scatter3D(x, y, z, color='red')
+        ax.plot3D(x, y, z)
+        ax.set_xlabel('X-axis')
+        ax.set_ylabel('Y-axis')
+        ax.set_zlabel('Z-axis')
+    elif foldType == "2D Labbyfold":
+        ax = plt.axes()
+        for coord in listOFCoords:
+            x.append(coord[0])
+            y.append(coord[1])
+        ax.scatter(x, y, color='red')
+        ax.plot(x, y)
+        ax.set_xlabel('X-axis')
+        ax.set_ylabel('Y-axis')
+    elif foldType == "Hexfold":
+        print("Hexfold cannot be plotted on a graph. This function can only plot \"2D Labbyfold\" and \"3D Labbyfold\"")
     plt.show()
     return
 
-sequence = [0, 0, 0, 0, 0, 0, 0, 0, 0]
+
+sequence = [0, 0, 0, 0, 0, 0, 0, 0]
 print(len(sequence))
 
-ProteinFolding(sequence, '3D Labbyfold')
+ProteinFolding(sequence, '2D Labbyfold')
 
-print3D(BestFold)
+plotAcid(BestFold, '2D Labbyfold')
