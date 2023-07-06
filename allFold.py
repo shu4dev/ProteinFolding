@@ -1,4 +1,8 @@
+import copy
+import numpy as np
+import matplotlib.pyplot as plt
 maxScore = 0
+BestFold = []
 twoDimLabbyfoldKeys = ["W", "D", "S", "A"]
 threeDimLabbyfoldKeys = ["W", "D", "S", "A", "F", "E"]
 hexfoldKeys = ["W", "E", "D", "X", "Z", "A"]
@@ -94,10 +98,12 @@ def ProteinFolding(acidSeq, foldType):
 # CoordsOfFolds: an array of the current Coordinates of the acid structure
 def fold(acidSeq, foldType, foldSeq, listOfCoords):
     global maxScore
+    global BestFold
     if len(foldSeq) >= (len(acidSeq) - 1):
         score = countScore(acidSeq, listOfCoords, foldType)
         if score >= maxScore:
             maxScore = score
+            BestFold = copy.copy(listOfCoords)
             print(foldType + " with a score of " + str(score) + ". Moves made: " + str(foldSeq) + ". List of Coordinates: " + str(listOfCoords))
         return
     listNextCoords = getNextCoords(listOfCoords[(len(listOfCoords) - 1)], foldType)
@@ -113,7 +119,30 @@ def fold(acidSeq, foldType, foldSeq, listOfCoords):
                 fold(acidSeq, foldType, foldSeq + [threeDimLabbyfoldKeys[i]], listOfCoords + [possCoord])
     return
 
+def print3D(listOFCoords):
+    global fig 
+    global ax
+    fig = plt.figure()
+    ax = plt.axes(projection = '3d')
+    x = []
+    y = []
+    z = []
+    for coord in listOFCoords:
+        x.append(coord[0])
+        y.append(coord[1])
+        z.append(coord[2])
+    ax.scatter3D(x, y, z, color='red')
+    ax.plot3D(x,y,z)
+    ax.set_xlabel('X-axis')
+    ax.set_ylabel('Y-axis')
+    ax.set_zlabel('Z-axis')
 
-sequence = [0, 0, 0, 0, 0]
+    plt.show()
+    return
+
+sequence = [0, 0, 0, 0, 0, 0, 0, 0, 0]
 print(len(sequence))
+
 ProteinFolding(sequence, '3D Labbyfold')
+
+print3D(BestFold)
