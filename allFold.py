@@ -155,9 +155,9 @@ def plotAcid(listOFCoords, foldType):
     return
 
 
-sequence = [0, 0, 0, 0, 0, 0, 0, 0]
+sequence = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 print(len(sequence))
 
-ProteinFolding(sequence, '2D Labbyfold')
+ProteinFolding(sequence, '3D Labbyfold')
 
-plotAcid(BestFold, '2D Labbyfold')
+plotAcid(BestFold, '3D Labbyfold')
