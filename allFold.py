@@ -2,6 +2,8 @@ import copy
 import matplotlib.pyplot as plt
 
 maxScore = 0
+fig = 0
+ax = 0
 BestFold = []
 twoDimLabbyfoldKeys = ["W", "D", "S", "A"]
 threeDimLabbyfoldKeys = ["W", "D", "S", "A", "F", "E"]
