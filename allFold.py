@@ -7,13 +7,14 @@ ax = 0
 BestFold = []
 twoDimLabbyfoldKeys = ["W", "D", "S", "A"]
 threeDimLabbyfoldKeys = ["W", "D", "S", "A", "F", "E"]
+fourDimLabbyfoldKeys = ["W", "D", "S", "A", "F", "E", "G", "R"]
 hexfoldKeys = ["W", "E", "D", "X", "Z", "A"]
 
 
 # This function produces the next set of possible Coordinates that the next acid can be placed.
 # currentCoords: [x,y] or [x, y, z] position of the latest acid.
 # prevCoord: [x,y] or [x, y, z] position of the previous acid.
-# foldType: the type of fold.  Accepted: "2D Labbyfold", "Hexfold", "3D Labbyfold"
+# foldType: the type of fold.  Accepted: "2D Labbyfold", "Hexfold", "3D Labbyfold", "4D Labbyfold"
 def getNextCoords(currentCoords, foldType):
     possibleCoords = []
     if foldType == "2D Labbyfold":
@@ -51,6 +52,17 @@ def getNextCoords(currentCoords, foldType):
             [currentCoords[0], currentCoords[1], currentCoords[2] + 1],
             [currentCoords[0], currentCoords[1], currentCoords[2] - 1],
         ]
+    elif foldType == "4D Labbyfold":
+        possibleCoords = [
+            [currentCoords[0], currentCoords[1] + 1, currentCoords[2], currentCoords[3]],
+            [currentCoords[0] + 1, currentCoords[1], currentCoords[2], currentCoords[3]],
+            [currentCoords[0], currentCoords[1] - 1, currentCoords[2], currentCoords[3]],
+            [currentCoords[0] - 1, currentCoords[1], currentCoords[2], currentCoords[3]],
+            [currentCoords[0], currentCoords[1], currentCoords[2] + 1, currentCoords[3]],
+            [currentCoords[0], currentCoords[1], currentCoords[2] - 1, currentCoords[3]],
+            [currentCoords[0], currentCoords[1], currentCoords[2], currentCoords[3]+1],
+            [currentCoords[0], currentCoords[1], currentCoords[2], currentCoords[3]-1],
+        ]
     return possibleCoords
 
 
@@ -77,7 +89,7 @@ def countScore(acidSeq, listOfCoords, foldType):
 # This is the initial starter function that takes in a acidSeq and foldType and prints the fold type, score, and
 #     the steps required to get that score if it is equal or greater than the current best score.
 # acidSeq: the input of array of 0 or 1.
-# foldType: the type of fold.  Accepted: "2D Labbyfold", "Hexfold", "3D Labbyfold"
+# foldType: the type of fold.  Accepted: "2D Labbyfold", "Hexfold", "3D Labbyfold", "4D Labbyfold"
 def ProteinFolding(acidSeq, foldType):
     foldSeq = ["D"]
     CoordsOfFolds = [[0, 0], [1, 0]]
@@ -87,8 +99,11 @@ def ProteinFolding(acidSeq, foldType):
     elif foldType == "3D Labbyfold":
         CoordsOfFolds = [[0, 0, 0], [1, 0, 0]]
         fold(acidSeq, foldType, foldSeq, CoordsOfFolds)
+    elif foldType == "4D Labbyfold":
+        CoordsOfFolds = [[0, 0, 0, 0], [1, 0, 0, 0]]
+        fold(acidSeq, foldType, foldSeq, CoordsOfFolds)
     else:
-        print("Invalid fold type parameter. Accepted: \"2D Labbyfold\", \"Hexfold\", \"3D Labbyfold\"")
+        print("Invalid fold type parameter. Accepted: \"2D Labbyfold\", \"Hexfold\", \"3D Labbyfold\", \"4D Labbyfold\"")
 
 
 # This function takes in an acidSeq, score, foldSeq, and CoordsOfFolds uses recursion to print the foldSeq if the
@@ -118,6 +133,8 @@ def fold(acidSeq, foldType, foldSeq, listOfCoords):
                 fold(acidSeq, foldType, foldSeq + [twoDimLabbyfoldKeys[i]], listOfCoords + [possCoord])
             elif foldType == "3D Labbyfold":
                 fold(acidSeq, foldType, foldSeq + [threeDimLabbyfoldKeys[i]], listOfCoords + [possCoord])
+            elif foldType == "4D Labbyfold":
+                fold(acidSeq, foldType, foldSeq + [fourDimLabbyfoldKeys[i]], listOfCoords + [possCoord])
     return
 
 
@@ -154,7 +171,7 @@ def plotAcid(listOFCoords, foldType):
     return
 
 
-sequence = [1, 0, 1, 0, 0, 0, 0, 0, 1]
+sequence = [0, 1, 0, 0, 0, 0, 0]
 print(len(sequence))
 
 # ProteinFolding(sequence, '2D Labbyfold')
