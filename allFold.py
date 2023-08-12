@@ -24,8 +24,7 @@ def getNextCoords(currentCoords, foldType):
             [currentCoords[0] - 1, currentCoords[1]],
         ]
     elif foldType == "Hexfold":
-        possibleCoords = 0
-        if (currentCoords[0] % 2) == 0:
+        if (currentCoords[1] % 2) == 0:
             possibleCoords = [
                 [currentCoords[0] - 1, currentCoords[1] + 1],
                 [currentCoords[0], currentCoords[1] + 1],
@@ -34,7 +33,7 @@ def getNextCoords(currentCoords, foldType):
                 [currentCoords[0] - 1, currentCoords[1] - 1],
                 [currentCoords[0] - 1, currentCoords[1]],
             ]
-        elif (currentCoords[0] % 2) == 1:
+        elif (currentCoords[1] % 2) == 1:
             possibleCoords = [
                 [currentCoords[0], currentCoords[1] + 1],
                 [currentCoords[0] + 1, currentCoords[1] + 1],
@@ -155,9 +154,11 @@ def plotAcid(listOFCoords, foldType):
     return
 
 
-sequence = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+sequence = [1, 0, 1, 0, 0, 0, 0, 0, 1]
 print(len(sequence))
 
-ProteinFolding(sequence, '3D Labbyfold')
+# ProteinFolding(sequence, '2D Labbyfold')
+ProteinFolding(sequence, 'Hexfold')
 
-plotAcid(BestFold, '3D Labbyfold')
+# plotAcid(BestFold, '3D Labbyfold')
+# print(getNextCoords([1, 0], 'Hexfold'))
