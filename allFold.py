@@ -171,11 +171,12 @@ def plotAcid(listOFCoords, foldType):
     return
 
 
-sequence = [0, 1, 0, 0, 0, 0, 0]
-print(len(sequence))
+# sequence = [0, 1, 0, 1, 0, 0, 1]
+sequence = [0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0]  # score of 9
+sequence1 = [0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 1]  #
+# print(len(sequence))
 
 # ProteinFolding(sequence, '2D Labbyfold')
-ProteinFolding(sequence, 'Hexfold')
+ProteinFolding(sequence1, 'Hexfold')
 
-# plotAcid(BestFold, '3D Labbyfold')
-# print(getNextCoords([1, 0], 'Hexfold'))
+# plotAcid(BestFold, '2D Labbyfold')
